@@ -63,7 +63,15 @@ public class VaultTools(VaultService vaultService)
         }
         if (!vs.IsInitialized())
         {
-            errorJson = Error("vault_not_initialized", "Vault is not initialized. Call initialize_vault first.");
+            var vaultPath = vs.GetVaultPath();
+            errorJson = JsonSerializer.Serialize(new
+            {
+                status = "error",
+                errorCode = "vault_not_initialized",
+                message = $"Vault at '{vaultPath}' is not initialized. Call initialize_vault with path='{vaultPath}'.",
+                vaultPath,
+                nextStep = $"Call initialize_vault with path=\"{vaultPath}\""
+            }, JsonOpts);
             return false;
         }
         errorJson = null;
