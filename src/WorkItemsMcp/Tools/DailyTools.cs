@@ -14,7 +14,7 @@ public class DailyTools(
     private static readonly JsonSerializerOptions JsonOpts = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
     [McpServerTool(Name = "resume_day")]
-    [Description("Creates or loads today's daily note and returns active, urgent, and blocked task summaries.")]
+    [Description("ALWAYS call this at the start of a work session or when the user asks 'what am I working on today', 'what's my day look like', 'catch me up', 'what were my tasks', 'resume my work', 'what did I have going on', or 'start my day'. Creates today's daily note if needed and returns all active, urgent, and blocked work items so the agent can give an immediate summary.")]
     public string ResumeDay(
         [Description("Date in YYYY-MM-DD format (defaults to today)")] string? date = null)
     {
@@ -48,7 +48,7 @@ public class DailyTools(
     }
 
     [McpServerTool(Name = "append_daily_update")]
-    [Description("Adds a timestamped update entry directly to today's daily note.")]
+    [Description("Logs a summary of the current conversation or user update into today's daily note. Use after any meaningful exchange about tasks — e.g. when the user shares news, gives an update on progress, or at the end of a work session to record what happened today.")]
     public string AppendDailyUpdate(
         [Description("Text content to add to the daily note")] string text,
         [Description("Related task IDs to link, e.g. [\"TASK-0001\", \"TASK-0002\"]")] string[]? relatedTaskIds = null,

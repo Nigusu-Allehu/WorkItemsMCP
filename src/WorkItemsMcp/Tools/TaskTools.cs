@@ -22,7 +22,7 @@ public class TaskTools(
     // ── create_task ──────────────────────────────────────────────────────────
 
     [McpServerTool(Name = "create_task")]
-    [Description("Creates a new task file in the vault. Returns the generated task ID.")]
+    [Description("Creates a new work item / task in the vault. Use when the user says 'add a task', 'create a work item', 'track this', 'I need to do X', or 'add to my list'.")]
     public string CreateTask(
         [Description("Task title")] string title,
         [Description("Task description")] string? description = null,
@@ -69,7 +69,7 @@ public class TaskTools(
     // ── get_task ─────────────────────────────────────────────────────────────
 
     [McpServerTool(Name = "get_task")]
-    [Description("Reads one task by its ID and returns its metadata and full markdown content.")]
+    [Description("Reads one work item / task by its ID. Use when the user asks about a specific task, work item, or TASK-NNNN ID.")]
     public string GetTask(
         [Description("Task ID, e.g. TASK-0001")] string taskId)
     {
@@ -99,7 +99,7 @@ public class TaskTools(
     // ── update_task ──────────────────────────────────────────────────────────
 
     [McpServerTool(Name = "update_task")]
-    [Description("Updates task metadata and/or content sections. Appends a history entry. Rebuilds views.")]
+    [Description("Updates a work item / task. Use when the user says 'update task X', 'mark as done', 'change status', 'set urgency', 'add a deadline', or 'task X is now blocked'.")]
     public string UpdateTask(
         [Description("Task ID, e.g. TASK-0001")] string taskId,
         [Description("New status value")] string? status = null,
@@ -177,7 +177,7 @@ public class TaskTools(
     // ── append_task_update ───────────────────────────────────────────────────
 
     [McpServerTool(Name = "append_task_update")]
-    [Description("Adds a history note to a task without modifying any structured fields.")]
+    [Description("Logs a note or observation on a work item without changing its fields. Use when the user gives an update on a task, shares progress, or adds context to a work item.")]
     public string AppendTaskUpdate(
         [Description("Task ID, e.g. TASK-0001")] string taskId,
         [Description("Text to add to the task history")] string text,
@@ -214,7 +214,7 @@ public class TaskTools(
     // ── list_tasks ───────────────────────────────────────────────────────────
 
     [McpServerTool(Name = "list_tasks")]
-    [Description("Lists tasks, optionally filtered by status, urgency, or blocked state.")]
+    [Description("Lists all work items and tasks tracked in the vault. ALWAYS use this when the user asks: 'what are my tasks', 'what work items do I have', 'show me my tasks', 'what am I working on', 'what's on my plate', 'list my tasks', 'what do I have to do', 'show all tasks', or any similar question about their task list. Supports optional filters by status, urgency, or blocked state.")]
     public string ListTasks(
         [Description("Filter by status (not-started | in-progress | blocked | done | cancelled)")] string? status = null,
         [Description("Filter by urgency (low | normal | high | urgent)")] string? urgency = null,
@@ -251,7 +251,7 @@ public class TaskTools(
     // ── search_tasks ─────────────────────────────────────────────────────────
 
     [McpServerTool(Name = "search_tasks")]
-    [Description("Performs a simple text search across all task markdown files.")]
+    [Description("Full-text search across all work items and tasks. Use when the user asks to find a task by keyword, topic, or phrase — e.g. 'find tasks about X', 'do I have a task for Y', 'search for Z in my tasks', or 'is there a work item about X'.")]
     public string SearchTasks(
         [Description("Search query string")] string query)
     {
