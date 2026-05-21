@@ -7,12 +7,35 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>WorkItemsMcp</RootNamespace>
     <AssemblyName>WorkItemsMcp</AssemblyName>
+
+    <!-- dotnet global tool packaging -->
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>work-items-mcp</ToolCommandName>
+
+    <!-- NuGet package metadata -->
+    <PackageId>WorkItemsMcp</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Nigusu Yenework</Authors>
+    <Description>MCP server for persistent markdown-based task tracking. Stores all work items as plain markdown files in a local vault directory.</Description>
+    <PackageTags>mcp;ai;tasks;markdown;work-items;task-tracker</PackageTags>
+    <PackageProjectUrl>https://github.com/Nigusu-Allehu/WorkItemsMCP</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Nigusu-Allehu/WorkItemsMCP</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Deterministic>true</Deterministic>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ModelContextProtocol" Version="*-*" />
-    <PackageReference Include="YamlDotNet" Version="*" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="*" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\icon.png" Pack="true" PackagePath="\" Condition="Exists('..\..\icon.png')" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ModelContextProtocol" Version="1.3.0" />
+    <PackageReference Include="YamlDotNet" Version="18.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.8" />
   </ItemGroup>
 
 </Project>
