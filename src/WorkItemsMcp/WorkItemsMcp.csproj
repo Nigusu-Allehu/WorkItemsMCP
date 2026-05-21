@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>WorkItemsMcp</RootNamespace>
+    <AssemblyName>WorkItemsMcp</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ModelContextProtocol" Version="*-*" />
+    <PackageReference Include="YamlDotNet" Version="*" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="*" />
+  </ItemGroup>
+
+</Project>
