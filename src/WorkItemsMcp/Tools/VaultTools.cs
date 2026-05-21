@@ -22,7 +22,22 @@ public class VaultTools(VaultService vaultService)
     {
         try
         {
-            return JsonSerializer.Serialize(vaultService.Initialize(path), JsonOpts);
+            vaultService.Initialize(path);
+
+            // Check whether the env var is already pointing at this path
+            var configured = vaultService.IsConfigured();
+            var currentPath = vaultService.GetVaultPath();
+            var envAligned = configured && string.Equals(currentPath, path, StringComparison.OrdinalIgnoreCase);
+
+            return JsonSerializer.Serialize(new
+            {
+                status = "initialized",
+                vaultPath = path,
+                envVarSet = envAligned,
+                nextStep = envAligned
+                    ? null
+                    : $"Set the environment variable {VaultService.EnvVar}={path} in your MCP client config and restart the client before using other tools."
+            }, JsonOpts);
         }
         catch (Exception ex)
         {
