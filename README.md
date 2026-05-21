@@ -4,6 +4,16 @@ A **Model Context Protocol (MCP) server** for persistent, markdown-based task tr
 
 ---
 
+## Installation
+
+Install as a dotnet global tool from NuGet.org:
+
+```bash
+dotnet tool install -g WorkItemsMcp
+```
+
+---
+
 ## Quick start
 
 ### 1. Set the vault environment variable
@@ -12,10 +22,10 @@ A **Model Context Protocol (MCP) server** for persistent, markdown-based task tr
 export TASK_TRACKER_VAULT=/path/to/your/task-vault
 ```
 
-### 2. Run the server (stdio transport)
+### 2. Run the server
 
 ```bash
-dotnet run --project src/WorkItemsMcp
+work-items-mcp
 ```
 
 ### 3. Register with your MCP client (e.g. Claude Desktop)
@@ -24,8 +34,7 @@ dotnet run --project src/WorkItemsMcp
 {
   "mcpServers": {
     "work-items": {
-      "command": "dotnet",
-      "args": ["run", "--project", "/path/to/WorkItemsMCP/src/WorkItemsMcp"],
+      "command": "work-items-mcp",
       "env": {
         "TASK_TRACKER_VAULT": "/path/to/your/task-vault"
       }
@@ -33,6 +42,8 @@ dotnet run --project src/WorkItemsMcp
   }
 }
 ```
+
+> **Running from source?** Use `dotnet run --project src/WorkItemsMcp` instead of `work-items-mcp`, and update `"command"`/`"args"` in the MCP client config accordingly.
 
 ---
 
@@ -202,3 +213,16 @@ src/WorkItemsMcp/
 - .NET 9
 - `ModelContextProtocol` NuGet package (official Microsoft SDK)
 - `YamlDotNet` NuGet package
+
+---
+
+## Releasing a new version
+
+Releases are published to NuGet.org automatically via GitHub Actions when a version tag is pushed:
+
+```bash
+git tag v1.2.0
+git push origin v1.2.0
+```
+
+The workflow will build, pack, and push the `.nupkg` to NuGet.org using the `NUGET_API_KEY` repository secret. You can also trigger a publish manually from the **Actions** tab → **Publish to NuGet** → **Run workflow**.
